@@ -4,11 +4,35 @@ import "./quiz.css";
 import EachQuestion from "../../component/EachQuestion";
 import { useParams } from "react-router-dom";
 
+const QUESTION = [
+  {
+    id: 1,
+    name: "cau hoi 1",
+    description: "chon dap an dung",
+    answer1: "dap an 1",
+    answer2: "dap an 2",
+    answer3: "dap an 3",
+    answer4: "dap an 4",
+  },
+  {
+    id: 2,
+    name: "cau hoi 2",
+    description: "chon dap an dung",
+    answer1: "dap an 1",
+    answer2: "dap an 2",
+    answer3: "dap an 3",
+    answer4: "dap an 4",
+  },
+];
+
 function Quiz() {
   document.title = "Quiz";
+  const [question, setQuestion] = React.useState(QUESTION);
+  const [currentQuestion, setCurrentQuestion] = React.useState(1);
   const params = useParams();
-  const {slug} = params;
+  const { slug } = params;
   // console.log(params);
+
   return (
     <div className="contanier">
       {/* dữ liệu người làm bài  */}
@@ -44,10 +68,16 @@ function Quiz() {
         <div className="question">
           <div className="part-title">
             <h3>問題1：次の言葉の使い方として最もよいものを一つ選びなさい。</h3>
-            
           </div>
 
-          <EachQuestion />
+          <EachQuestion
+            question={question[currentQuestion].name}
+            contentQuestion={question[0].description}
+            answer1={question[0].answer1}
+            answer2={question[0].answer2}
+            answer3={question[0].answer3}
+            answer4={question[0].answer4}
+          />
         </div>
 
         <div className="button-choose">

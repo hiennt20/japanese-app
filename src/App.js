@@ -7,6 +7,7 @@ import Result from "./pages/Result/Result";
 import Admin from "./pages/Admin/Admin";
 import ExamList from "./pages/ExamList/ExamList";
 
+
 function App() {
   return (
     <Router>
@@ -21,9 +22,9 @@ function App() {
           <li>
             <Link to="/result">result</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/quiz/">quiz</Link>
-          </li>
+          </li> */}
           <li>
             <Link to="/exam-list">exam list</Link>
           </li>

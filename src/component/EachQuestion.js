@@ -1,31 +1,32 @@
 import React from "react";
 
-function EachQuestion() {
+function EachQuestion({question, contentQuestion, answer1, answer2, answer3, answer4}) {
   return (
     <div className="main-question">
       <div className="ques-name">
         <p>
-          question 1 <span>*</span>
+          {question} <span>*</span>
         </p>
         <p>
-          田中さんが名前を呼んだのに、高橋(たかはし)さんは
-          <b>“無視した”</b>。
+          {contentQuestion}
+          {/* 田中さんが名前を呼んだのに、高橋(たかはし)さんは
+          <b>“無視した”</b>。 */}
         </p>
       </div>
 
     
       <div className="answer">
         <input type="radio" id="question1" name="question" />
-        <label htmlFor="question1">いなくなった</label>
+        <label htmlFor="question1">{answer1}</label>
         <br />
         <input type="radio" id="question2" name="question" />
-        <label htmlFor="question2">別の人を見た</label>
+        <label htmlFor="question2">{answer2}</label>
         <br />
         <input type="radio" id="question3" name="question" />
-        <label htmlFor="question3">見えなかった</label>
+        <label htmlFor="question3">{answer3}</label>
         <br />
         <input type="radio" id="question4" name="question" />
-        <label htmlFor="question4">返事をしなかった</label>
+        <label htmlFor="question4">{answer4}</label>
       </div>
     </div>
   );
