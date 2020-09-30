@@ -1,6 +1,13 @@
 import React from "react";
 
-function EachQuestion({question, contentQuestion, answer1, answer2, answer3, answer4}) {
+function EachQuestion({
+  question,
+  contentQuestion,
+  answer1,
+  answer2,
+  answer3,
+  answer4,
+}) {
   return (
     <div className="main-question">
       <div className="ques-name">
@@ -14,7 +21,6 @@ function EachQuestion({question, contentQuestion, answer1, answer2, answer3, ans
         </p>
       </div>
 
-    
       <div className="answer">
         <input type="radio" id="question1" name="question" />
         <label htmlFor="question1">{answer1}</label>

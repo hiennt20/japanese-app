@@ -1,11 +1,14 @@
 import React from "react";
 
-
-function Part({ numb, exercise, question }) {
+function Part({ numb, exercise, changeQuestion }) {
   let questionNumbers = [];
 
   for (let i = 1; i <= numb; i++) {
-    questionNumbers.push(<button onClick={question} key={i}>{i}</button>);
+    questionNumbers.push(
+      <button onClick={() => changeQuestion(i-1)} key={i}>
+        {i}
+      </button>
+    );
   }
   return (
     <div>
