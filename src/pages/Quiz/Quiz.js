@@ -5,6 +5,7 @@ import Part from "../../component/Part";
 import "./quiz.css";
 import EachQuestion from "../../component/EachQuestion";
 import { useParams } from "react-router-dom";
+import LessonContent from "../../component/LessonContent";
 
 // const QUESTION = [
 //   {
@@ -61,6 +62,12 @@ function Quiz() {
   document.title = "Quiz";
   const [question, setQuestion] = React.useState([]);
   const [content, setContent] = React.useState("");
+  const [questionNumber, setQuestionNumber] = React.useState("");
+  const [questionName, setQuestionName] = React.useState("");
+  const [answer1, setAnswer1] = React.useState("");
+  const [answer2, setAnswer2] = React.useState("");
+  const [answer3, setAnswer3] = React.useState("");
+  const [answer4, setAnswer4] = React.useState("");
 
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const [exercise, setExercise] = React.useState("問題 1");
@@ -82,9 +89,19 @@ function Quiz() {
 
   function displayContent(lessonIndex, questionIndex) {
     // setContent("demo: " + lessonIndex + "-" + questionIndex);
-    setContent(question[lessonIndex][questionIndex].name)
-    // setContent(question[lessonIndex][questionIndex].description)
+    // setContent(question[lessonIndex][questionIndex].name);
+    setQuestionNumber(question[lessonIndex][questionIndex].name);
+    setQuestionName(question[lessonIndex][questionIndex].description);
+    setAnswer1(question[lessonIndex][questionIndex].answer1);
+    setAnswer2(question[lessonIndex][questionIndex].answer2);
+    setAnswer3(question[lessonIndex][questionIndex].answer3);
+    setAnswer4(question[lessonIndex][questionIndex].answer4);
   }
+
+  // in ra ten cau hoi tu database 
+  // function questionName(lessonIndex, questionIndex){
+  //   setQuestionName(question[lessonIndex][questionIndex].name);
+  // }
 
   //  hàm bấm vào số để chuyển câu hỏi
   function changeQuestion(number) {
@@ -158,13 +175,16 @@ function Quiz() {
         </div>
 
         <div className="question">
-          <div className="part-title">
-            {/* <h3>
-              {exercise}：次の言葉の使い方として最もよいものを一つ選びなさい。
-            </h3> */}
-            <h3>問題1：次の言葉の使い方として最もよいものを一つ選びなさい。</h3>
-          </div>
-            {content}
+          <LessonContent
+            // questionName={questionName}
+            questionNumber={questionNumber}
+            questionName={questionName}
+            answer1={answer1}
+            answer2={answer2}
+            answer3={answer3}
+            answer4={answer4}
+          />
+
           {/* <EachQuestion
             question={question[currentQuestion].name}
             contentQuestion={question[currentQuestion].description}
