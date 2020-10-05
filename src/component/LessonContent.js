@@ -7,11 +7,25 @@ function LessonContent({
   answer2,
   answer3,
   answer4,
+  question,
+  lessonIndex,
+  lessonTitle,
 }) {
+  // function titleChange() {
+  //   let mondai;
+  //   if (question[lessonIndex] == 0) {
+  //     mondai = "問題1：次の言葉の使い方として最もよいものを一つ選びなさい。";
+  //   } else {
+  //     mondai = "問題2：次の言葉の使い方として最もよいものを一つ選びなさい。";
+  //   }
+  // }
+
   return (
     <div>
       <div className="part-title">
-        <h3>問題1：次の言葉の使い方として最もよいものを一つ選びなさい。</h3>
+        <h3>{lessonTitle}</h3>
+        {/* <h3>{titleChange}</h3> */}
+        {/* <h3>問題1：次の言葉の使い方として最もよいものを一つ選びなさい。</h3> */}
       </div>
 
       <div className="main-question">
@@ -19,8 +33,8 @@ function LessonContent({
           <p>
             {questionNumber} <span>*</span>
           </p>
-          <p>
-            {questionName}
+          <p dangerouslySetInnerHTML={{__html:questionName}}>
+            {/* {questionName} */}
             {/* 田中さんが名前を呼んだのに、高橋(たかはし)さんは
            <b>“無視した”</b>。  */}
           </p>
