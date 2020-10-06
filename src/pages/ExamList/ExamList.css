@@ -1,0 +1,26 @@
+
+ .contanier{
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    border: solid orange;
+} 
+.exam-img img{
+margin-top: 0;
+}
+.exam-img{
+    width: 300px;
+    border: solid green;
+    margin-right: 20px;
+    padding: 10px;
+}
+h4{
+    text-align: center;
+}
+.exam-img p{
+    text-align: center;
+}
+a:hover{
+    text-decoration: none;
+    color: orangered;
+}

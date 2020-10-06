@@ -147,8 +147,6 @@ function Quiz() {
 
   //  code trước khi đổ api
   // function nextQuestion() {
-
-  // exams.map((les) => (les.question))
   // if (currentQuestion < question.length - 1) {
   //   setCurrentQuestion(currentQuestion + 1);
   // }
