@@ -4,7 +4,7 @@ import React from "react";
 
 function Part({ lesson, lessonIndex, displayContent }) {
   return (
-    <div>
+    <div className="item-number">
       <h5>問題 {lessonIndex + 1}</h5>
 
       {lesson.map((question, questionIndex) => (

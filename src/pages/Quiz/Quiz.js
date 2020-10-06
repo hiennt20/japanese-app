@@ -7,8 +7,6 @@ import EachQuestion from "../../component/EachQuestion";
 import { useParams } from "react-router-dom";
 import LessonContent from "../../component/LessonContent";
 
-
-
 function Quiz() {
   document.title = "Quiz";
   const [question, setQuestion] = React.useState([]);
@@ -21,10 +19,14 @@ function Quiz() {
   const [answer4, setAnswer4] = React.useState("");
   const [lessonTitle, setLessonTitle] = React.useState("");
 
-  const [currentQuestion, setCurrentQuestion] = React.useState(0);
-  const [exercise, setExercise] = React.useState("問題 1");
+  // const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  // const [exercise, setExercise] = React.useState("問題 1");
 
-  const params = useParams(); // gọi hàm không truyền tham số để lấy ra hết slug
+  const [currentLessonIndex, setCurrentLessonIndex] = React.useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+  // const [currentQuestion, setCurrentQuestion] = React.useState("");
+
+  const params = useParams(); // ham nay không truyền tham số để lấy ra hết slug
   const { slug } = params; // = const slug = params.slug hai cách viết khác nhau
 
   // để đổ dữ liệu từ database ở api dang json (liên ket với database)
@@ -43,6 +45,9 @@ function Quiz() {
       setAnswer3(firstQuestion[0].answer3);
       setAnswer4(firstQuestion[0].answer4);
       setLessonTitle(firstQuestion[0].lesson);
+
+      // xet cau hoi hien tai khi do api vao
+      // setCurrentQuestion(firstQuestion[0]);
     }
     getQuestion();
   }, []);
@@ -59,31 +64,95 @@ function Quiz() {
     setAnswer3(question[lessonIndex][questionIndex].answer3);
     setAnswer4(question[lessonIndex][questionIndex].answer4);
     setLessonTitle(question[lessonIndex][questionIndex].lesson);
-    // dung de chuyen cau hoi sau gan vao button back va next
-    setCurrentQuestion(questionIndex);
-  }
 
+    // dung de chuyen cau hoi sau gan vao button back va next
+    setCurrentLessonIndex(lessonIndex);
+    setCurrentQuestionIndex(questionIndex);
+    // setCurrentQuestion(question[lessonIndex][questionIndex]);
+  }
   //  code trước khi đổ api
   //  hàm bấm vào số để chuyển câu hỏi
-  function changeQuestion(number) {
-    setCurrentQuestion(number);
-    setExercise("問題 1");
+  // function changeQuestion(number) {
+  //   setCurrentQuestion(number);
+  //   setExercise("問題 1");
+  // }
+  function backQuestion() {
+    // alert(currentLessonIndex +"-"+ (currentQuestionIndex));
+    // console.log(question[currentLessonIndex][currentQuestionIndex -1])
+
+    if (currentQuestionIndex >= 1) {
+      // setCurrentLessonIndex(currentLessonIndex - 1);
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setQuestionNumber(
+        question[currentLessonIndex][currentQuestionIndex - 1].name
+      );
+      setQuestionName(
+        question[currentLessonIndex][currentQuestionIndex - 1].description
+      );
+      setAnswer1(
+        question[currentLessonIndex][currentQuestionIndex - 1].answer1
+      );
+      setAnswer2(
+        question[currentLessonIndex][currentQuestionIndex - 1].answer2
+      );
+      setAnswer3(
+        question[currentLessonIndex][currentQuestionIndex - 1].answer3
+      );
+      setAnswer4(
+        question[currentLessonIndex][currentQuestionIndex - 1].answer4
+      );
+      setLessonTitle(
+        question[currentLessonIndex][currentQuestionIndex - 1].lesson
+      );
+    }
+    console.log(question[currentLessonIndex][currentQuestionIndex - 1]);
+
+    // ? tại sao phải -1 những 2 lần ạ? không thể hiểu được
   }
 
   //  code trước khi đổ api
-  function backQuestion() {
-    // alert(currentQuestion)
-    if (currentQuestion >= 1) {
-      setCurrentQuestion(currentQuestion - 1);
-    }
-  }
-  //  code trước khi đổ api
+  // function backQuestion() {
+  //   // alert(currentQuestion)
+  //   if (currentQuestion >= 1) {
+  //     setCurrentQuestion(currentQuestion - 1);
+  //   }
+  // }
   function nextQuestion() {
-    // alert(currentQuestion);
-    if (currentQuestion < question.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+    if (currentQuestionIndex < question[currentLessonIndex].length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setQuestionNumber(
+        question[currentLessonIndex][currentQuestionIndex + 1].name
+      );
+      setQuestionName(
+        question[currentLessonIndex][currentQuestionIndex + 1].description
+      );
+      setAnswer1(
+        question[currentLessonIndex][currentQuestionIndex + 1].answer1
+      );
+      setAnswer2(
+        question[currentLessonIndex][currentQuestionIndex + 1].answer2
+      );
+      setAnswer3(
+        question[currentLessonIndex][currentQuestionIndex + 1].answer3
+      );
+      setAnswer4(
+        question[currentLessonIndex][currentQuestionIndex + 1].answer4
+      );
+      setLessonTitle(
+        question[currentLessonIndex][currentQuestionIndex + 1].lesson
+      );
     }
+    console.log(question[currentLessonIndex][currentQuestionIndex + 1]);
   }
+
+  //  code trước khi đổ api
+  // function nextQuestion() {
+
+  // exams.map((les) => (les.question))
+  // if (currentQuestion < question.length - 1) {
+  //   setCurrentQuestion(currentQuestion + 1);
+  // }
+  //  }
 
   return (
     <div className="contanier">
@@ -164,8 +233,6 @@ function Quiz() {
   );
 }
 export default Quiz;
-
-
 
 // database version 2
 // QUESTIONS= [
@@ -321,7 +388,7 @@ export default Quiz;
 //   ]
 // ]
 
-// database version 1 
+// database version 1
 // const QUESTION = [
 //   {
 //     id: 1,
@@ -371,4 +438,4 @@ export default Quiz;
 //     answer3: "困(こま)っている",
 //     answer4: "笑(わら)っている",
 //   },
-// ];
+// ]
