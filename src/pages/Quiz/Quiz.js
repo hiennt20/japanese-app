@@ -25,7 +25,7 @@ function Quiz() {
   const [currentLessonIndex, setCurrentLessonIndex] = React.useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
 
-  // const [currentQuestion, setCurrentQuestion] = React.useState({});
+  // const [currentQuestion, setCurrentQuestion] = React.useState({}); //khai báo câu hỏi hiện tại là một object cho ngắn gọn hơn
 
   const params = useParams(); // ham nay không truyền tham số để lấy ra hết slug
   const { slug } = params; // = const slug = params.slug hai cách viết khác nhau
@@ -38,7 +38,8 @@ function Quiz() {
       const exam = await response.json();
       // console.log(exam);
       setQuestion(exam.questions);
-      // setCurrentQuestion(exam.questions[0][0]);
+
+      // setCurrentQuestion(exam.questions[0][0]); //câu hỏi đầu tiên
 
       let firstQuestion = exam.questions[0][0];
       setQuestionNumber(firstQuestion.name);
@@ -83,9 +84,10 @@ function Quiz() {
     // alert(currentLessonIndex +"-"+ (currentQuestionIndex));
     // console.log(question[currentLessonIndex][currentQuestionIndex -1])
 
-    if (currentQuestionIndex >= 1) {
-      // setCurrentLessonIndex(currentLessonIndex - 1);
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    // setCurrentLessonIndex(currentLessonIndex - 1);
+
+    // lùi lại câu hỏi trong cùng một mondai
+    if (currentQuestionIndex > 0) {
       setQuestionNumber(
         question[currentLessonIndex][currentQuestionIndex - 1].name
       );
@@ -107,11 +109,87 @@ function Quiz() {
       setLessonTitle(
         question[currentLessonIndex][currentQuestionIndex - 1].lesson
       );
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
-    console.log(question[currentLessonIndex][currentQuestionIndex - 1]);
 
-    // ? tại sao phải -1 những 2 lần ạ? không thể hiểu được
+    // chuyển câu hỏi đầu của mondai này về câu hỏi cuối của mondai liền kề trước
+    if (currentLessonIndex > 0 && currentQuestionIndex == 0) {
+      setQuestionNumber(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].name
+      );
+      setQuestionName(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].description
+      );
+      setAnswer1(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].answer1
+      );
+      setAnswer2(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].answer2
+      );
+      setAnswer3(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].answer3
+      );
+      setAnswer4(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].answer4
+      );
+      setLessonTitle(
+        question[currentLessonIndex - 1][
+          question[currentLessonIndex - 1].length - 1
+        ].lesson
+      );
+      setCurrentLessonIndex(currentLessonIndex - 1);
+
+      // setCurrentQuestionIndex(currentQuestionIndex -1);// sai
+      setCurrentQuestionIndex(question[currentLessonIndex - 1].length - 1);
+      // lúc này chỉ số câu hỏi là question[currentLessonIndex - 1].length đang bị phụ thuộc vào chỉ số bài hiện tại
+    }
   }
+
+  // alert(currentLessonIndex);
+  // console.log(question[currentLessonIndex]);
+
+  // dùng để back câu hỏi trong một lesson
+  // if (currentQuestionIndex >= 1) {
+  //   // setCurrentLessonIndex(currentLessonIndex - 1);
+
+  //   setQuestionNumber(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].name
+  //   );
+  //   setQuestionName(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].description
+  //   );
+  //   setAnswer1(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].answer1
+  //   );
+  //   setAnswer2(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].answer2
+  //   );
+  //   setAnswer3(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].answer3
+  //   );
+  //   setAnswer4(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].answer4
+  //   );
+  //   setLessonTitle(
+  //     question[currentLessonIndex][currentQuestionIndex - 1].lesson
+  //   );
+  //   setCurrentQuestionIndex(currentQuestionIndex - 1);
+  // }
+  // console.log(question[currentLessonIndex][currentQuestionIndex - 1]);
+
+  // ? tại sao phải -1 những 2 lần ạ? không thể hiểu được
 
   //  code trước khi đổ api
   // function backQuestion() {
@@ -121,6 +199,7 @@ function Quiz() {
   //   }
   // }
   function nextQuestion() {
+    // next từng câu hỏi trong một lesson
     if (currentQuestionIndex < question[currentLessonIndex].length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setQuestionNumber(
@@ -144,8 +223,21 @@ function Quiz() {
       setLessonTitle(
         question[currentLessonIndex][currentQuestionIndex + 1].lesson
       );
+    } else if (
+      currentLessonIndex < question.length &&
+      currentQuestionIndex == question[currentLessonIndex].length - 1
+    ) {
+      setQuestionNumber(question[currentLessonIndex + 1][0].name);
+      setQuestionName(question[currentLessonIndex + 1][0].description);
+      setAnswer1(question[currentLessonIndex + 1][0].answer1);
+      setAnswer2(question[currentLessonIndex + 1][0].answer2);
+      setAnswer3(question[currentLessonIndex + 1][0].answer3);
+      setAnswer4(question[currentLessonIndex + 1][0].answer4);
+      setLessonTitle(question[currentLessonIndex + 1][0].lesson);
+      setCurrentLessonIndex([currentLessonIndex + 1] +1);
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
-    console.log(question[currentLessonIndex][currentQuestionIndex + 1]);
+    // console.log(question[currentLessonIndex][currentQuestionIndex + 1]);
   }
 
   //  code trước khi đổ api
