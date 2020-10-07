@@ -24,7 +24,8 @@ function Quiz() {
 
   const [currentLessonIndex, setCurrentLessonIndex] = React.useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
-  // const [currentQuestion, setCurrentQuestion] = React.useState("");
+
+  // const [currentQuestion, setCurrentQuestion] = React.useState({});
 
   const params = useParams(); // ham nay không truyền tham số để lấy ra hết slug
   const { slug } = params; // = const slug = params.slug hai cách viết khác nhau
@@ -37,14 +38,16 @@ function Quiz() {
       const exam = await response.json();
       // console.log(exam);
       setQuestion(exam.questions);
-      let firstQuestion = exam.questions[0];
-      setQuestionNumber(firstQuestion[0].name);
-      setQuestionName(firstQuestion[0].description);
-      setAnswer1(firstQuestion[0].answer1);
-      setAnswer2(firstQuestion[0].answer2);
-      setAnswer3(firstQuestion[0].answer3);
-      setAnswer4(firstQuestion[0].answer4);
-      setLessonTitle(firstQuestion[0].lesson);
+      // setCurrentQuestion(exam.questions[0][0]);
+
+      let firstQuestion = exam.questions[0][0];
+      setQuestionNumber(firstQuestion.name);
+      setQuestionName(firstQuestion.description);
+      setAnswer1(firstQuestion.answer1);
+      setAnswer2(firstQuestion.answer2);
+      setAnswer3(firstQuestion.answer3);
+      setAnswer4(firstQuestion.answer4);
+      setLessonTitle(firstQuestion.lesson);
 
       // xet cau hoi hien tai khi do api vao
       // setCurrentQuestion(firstQuestion[0]);
