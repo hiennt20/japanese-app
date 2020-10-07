@@ -199,9 +199,12 @@ function Quiz() {
   //   }
   // }
   function nextQuestion() {
+    console.log(currentLessonIndex,currentQuestionIndex); //phải kiểm tra chỉ số của câu hỏi trước khi chạy state
+
     // next từng câu hỏi trong một lesson
     if (currentQuestionIndex < question[currentLessonIndex].length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+
       setQuestionNumber(
         question[currentLessonIndex][currentQuestionIndex + 1].name
       );
@@ -224,7 +227,7 @@ function Quiz() {
         question[currentLessonIndex][currentQuestionIndex + 1].lesson
       );
     } else if (
-      currentLessonIndex < question.length &&
+      currentLessonIndex < question.length -1 &&
       currentQuestionIndex == question[currentLessonIndex].length - 1
     ) {
       setQuestionNumber(question[currentLessonIndex + 1][0].name);
@@ -234,8 +237,8 @@ function Quiz() {
       setAnswer3(question[currentLessonIndex + 1][0].answer3);
       setAnswer4(question[currentLessonIndex + 1][0].answer4);
       setLessonTitle(question[currentLessonIndex + 1][0].lesson);
-      setCurrentLessonIndex([currentLessonIndex + 1] +1);
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setCurrentLessonIndex(currentLessonIndex + 1);
+      setCurrentQuestionIndex(0);
     }
     // console.log(question[currentLessonIndex][currentQuestionIndex + 1]);
   }
